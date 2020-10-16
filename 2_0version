@@ -1,0 +1,76 @@
+#include <iostream>
+#include <string>
+#include <Windows.h>
+using namespace std;
+
+int main()
+{
+    int block = 35;
+    int space = 32;
+    int player = 1;
+    int player_pos_y = 1;
+    int player_pos_x = 1;
+    int player_pos = 14;
+    string area = "############\n"
+        "#          #\n"
+        "#          #\n"
+        "#          #\n"
+        "#          #\n"
+        "#          #\n"
+        "#          #\n"
+        "############";
+    bool is_game_run = true;
+    cout << area;
+    while (is_game_run) {
+        Sleep(50);
+        //gravitation
+        if (player_pos_y < 6 && area[player_pos + 13] != block) {
+            Sleep(50);
+            system("cls");
+            player_pos_y += 1;
+            area[player_pos] = space;
+            player_pos += 13;
+            area[player_pos] = player;
+            cout << area;
+        }
+
+        /*
+        if (GetKeyState(VK_DOWN) < 0 && player_pos_y < 7) {
+            system("cls");
+            player_pos_y += 1;
+            area[player_pos] = 35;
+            player_pos += 13;
+            area[player_pos] = player;
+            cout << area;
+        }
+        */
+        if (GetKeyState(VK_UP) < 0 && area[player_pos + 13] == block && area[player_pos - 13] != block) {
+            system("cls");
+            player_pos_y -= 2;
+            area[player_pos] = space; 
+            player_pos -= 26;
+            area[player_pos] = player;
+            cout << area;
+        }
+        //jump
+        if (GetKeyState(VK_RIGHT) < 0 && area[player_pos + 1] != block) {
+            system("cls");
+            player_pos_x += 1;
+            area[player_pos] = space;
+            player_pos += 1;
+            area[player_pos] = player;
+            cout << area;
+        }
+        if (GetKeyState(VK_LEFT) < 0 && area[player_pos - 1] != block) {
+            system("cls");
+            player_pos_x -= 1;
+            area[player_pos] = space;
+            player_pos -= 1;
+            area[player_pos] = player;
+            cout << area;
+        }
+        //system("cls");
+        //cout << area;
+        //cout << player_pos;
+    }
+}
